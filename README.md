@@ -6,7 +6,6 @@ A playground to learn and practice Kotlin language with IntelliJ IDEA.
 - IDE: IntelliJ IDEA
 - Platform: macOS (Intel)
 
----
 
 ## Primary Objectives 
 
@@ -22,9 +21,10 @@ A playground to learn and practice Kotlin language with IntelliJ IDEA.
 1. Get used to applying OOP with Kotlin. 
 2. Learn about the Clean Code Architecture and get used to it.
 3. Write tests, lots of tests, to get used to TDD.
-4. Learn and Practice the Design Pattern with Kotlin.
+4. Learn and Practice the Design Patterns with Kotlin.
 
-## Final Objectives 
+
+## Final Objective 
 
 1. Enjoy playing Kotlin
 
