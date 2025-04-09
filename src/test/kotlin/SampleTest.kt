@@ -1,5 +1,6 @@
 import org.example.*
 import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
 class CalculatorTest {
@@ -40,15 +41,18 @@ class CalculatorTest {
 
     @Test
     fun testDivisionByZero() {
-        val expected = ArithmeticException("/ by zero")
-        assertEquals(expected, testCalculator.calculate(40, '/', 0))
+        assertThrows<ArithmeticException> {
+            testCalculator.calculate(40, '/', 0)
+        }
     }
 
     @Test
     fun testUnsupportedOp() {
         val op = '.'
-        val expected = IllegalArgumentException("Unsupported operator: $op")
-        assertEquals(expected, testCalculator.calculate(40, op, 0))
+        val exception = assertThrows<IllegalArgumentException> {
+            testCalculator.calculate(40, op, 2)
+        }
+        assertEquals("Unsupported operator: $op", exception.message)
     }
 
 }
