@@ -1,31 +1,48 @@
 package org.example
 
+interface Operator {
+    fun supports(symbol: Char): Boolean
+    fun operate(a: Int, b: Int): Int
+}
+
+class Addition: Operator {
+    override fun supports(symbol: Char) = symbol == '+'
+    override fun operate(a: Int, b: Int) = a + b
+}
+
+class Subtraction: Operator {
+    override fun supports(symbol: Char) = symbol == '-'
+    override fun operate(a: Int, b: Int) = a - b
+}
+
+class Multiplication: Operator {
+    override fun supports(symbol: Char) = symbol == '*'
+    override fun operate(a: Int, b: Int) = a * b
+}
+
+class Division: Operator {
+    override fun supports(symbol: Char) = symbol == '/'
+    override fun operate(a: Int, b: Int) = a / b
+}
+
+class Calculator(private val operators: List<Operator>) {
+    fun calculate(a: Int, op: Char, b: Int): Int {
+        val operator = operators.find { it.supports(op) }
+            ?: throw IllegalArgumentException("Unsupported operator: $op")
+        return operator.operate(a, b)
+    }
+}
+
 fun main() {
-    println(calculate(40, '+', 2))
-    println(calculate(40, '-', 2))
-    println(calculate(40, '*', 2))
-    println(calculate(40, '/', 2))
-    println(calculate(0, '/', 40))
-//    println(calculate(40, '/', 0))
-//    println(calculate(40, '.', 2))
-}
+    val cal = Calculator(
+        operators = listOf(Addition(), Subtraction(), Multiplication(), Division())
+    )
 
-fun calculate(a: Int, op: Char, b: Int): Int {
-    return when (op) {
-        '+' -> a + b
-        '-' -> a - b
-        '*' -> a * b
-        '/' -> {
-            if (b == 0) throw IllegalArgumentException("Division by zero.")
-            a / b
-        }
-        else -> throw IllegalArgumentException("Unsupported operator: $op")
-    }
-}
-
-class Sample() {
-
-    fun sum(a: Int, b: Int): Int {
-        return a + b
-    }
+    println(cal.calculate(40, '+', 2))
+    println(cal.calculate(40, '*', 2))
+    println(cal.calculate(40, '-', 2))
+    println(cal.calculate(40, '/', 2))
+    println(cal.calculate(0, '/', 40))
+//    println(cal.calculate(40, '/', 0))
+//    println(cal.calculate(40, '.', 2))
 }
